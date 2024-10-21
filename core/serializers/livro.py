@@ -7,7 +7,7 @@ class LivroSerializer(ModelSerializer):
         model = Livro
         fields = "__all__"
 
-class LivroDatailSerializer(ModelSerializer):
+class LivroDetailSerializer(ModelSerializer):
     class Meta:
         model = Livro
         fields = "__all__"
