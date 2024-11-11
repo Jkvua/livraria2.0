@@ -1,5 +1,8 @@
+from django.conf import settings
+from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import include, path
+from uploader.router import router as uploader_router
 
 from drf_spectacular.views import (
     SpectacularAPIView,
@@ -18,10 +21,10 @@ from core.views import LivroViewSet
 router = DefaultRouter()
 
 # router.register("usuarios", UserViewSet, basename="users")
+router.register("autores", AutorViewSet)
 router.register("categorias", CategoriaViewSet)
-router.register("editora", EditoraViewSet)
-router.register("autor", AutorViewSet)
-router.register("livro", LivroViewSet)
+router.register("editoras", EditoraViewSet)
+router.register("livros", LivroViewSet)
 router.register(r"usuarios", UserViewSet, basename="usuarios")
 
 urlpatterns = [
@@ -38,9 +41,15 @@ urlpatterns = [
         SpectacularRedocView.as_view(url_name="schema"),
         name="redoc",
     ),
+    path(
+        "api/media/", include(uploader_router.urls)
+    ),
+
     # Simple JWT
     path("token/", TokenObtainPairView.as_view(), name="token_obtain_pair"),
     path("token/refresh/", TokenRefreshView.as_view(), name="token_refresh"),
     # API
     path("api/", include(router.urls)),
 ]
+
+urlpatterns += static(settings.MEDIA_ENDPOINT, document_root=settings.MEDIA_ROOT)

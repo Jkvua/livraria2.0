@@ -16,17 +16,18 @@ dependencies = [
     'gunicorn>=21.2.0',
     'netifaces>=0.11.0',
     'passage-identity>=2.1.4',
-    'Pillow>=10.3.0',
+    "Pillow>=11.0.0",
     'pre-commit>=3.5.0',
     'psycopg2-binary>=2.9.9',
     'pydotplus>=2.0.2',
     'python-dotenv>=1.0.0',
-    'python-magic-bin>=0.4.14; sys_platform == "win32"',
-    'python-magic>=0.4.27; sys_platform == "linux"',
+    "python-magic-bin>=0.4.14; sys_platform == \"win32, darwin\"",
+    "python-magic>=0.4.27; sys_platform == \"linux\"",
     'setuptools>=68.2.2',
     'uvicorn>=0.29.0',
     'whitenoise[brotli]>=6.6.0',
 ]
+post_migrate = "python manage.py graph_models --disable-sort-fields -g -o core.png core uploader"
 requires-python = ">=3.10"
 license = { text = "MIT" }
 
@@ -58,6 +59,7 @@ test = "python manage.py test"
 loaddata = "python manage.py loaddata core.json"
 dumpdata = "python manage.py dumpdata --indent 2"
 cria_api = "python ./scripts/cria_api.py {args}"
+
 
 [tool.black]
 line-length = 120
