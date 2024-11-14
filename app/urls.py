@@ -42,7 +42,8 @@ urlpatterns = [
         name="redoc",
     ),
     path(
-        "api/media/", include(uploader_router.urls)
+        "api/media/", 
+        include(uploader_router.urls)
     ),
 
     # Simple JWT
